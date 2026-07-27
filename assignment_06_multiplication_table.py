@@ -50,8 +50,53 @@
 # - Complete Part A before attempting Part B.
 #
 
-#
-# =============================================================================
-# YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
-# =============================================================================
+## PROGRAMMING FUNDAMENTALS - Assignment 06
+# Topic: Loops and Functions
+# TASK: Multiplication Table Generator
+
+
+def print_single_table(num):
+    """Generates and prints the multiplication table for a given number from 1 to 12."""
+    print(f"Multiplication Table for {num}:")
+    for i in range(1, 13):
+        print(f"{num} x {i} = {num * i}")
+
+
+def part_a():
+    """Handles Part A: Single Table."""
+    print("--- PART A: Single Table ---")
+    try:
+        num = int(input("Enter a positive integer: "))
+        if num <= 0:
+            print("Error: Please enter a positive integer.")
+            return
+        print_single_table(num)
+    except ValueError:
+        print("Error: Invalid input! Please enter a valid positive integer.")
+
+
+def part_b():
+    """Handles Part B: Tables from 1 to N."""
+    print("\n--- PART B: Tables from 1 to N ---")
+    try:
+        n = int(input("Enter a positive integer N: "))
+        if n <= 0:
+            print("Error: Please enter a positive integer.")
+            return
+
+        for num in range(1, n + 1):
+            print_single_table(num)
+            if num < n:
+                print("---")  # Separator line between tables
+    except ValueError:
+        print("Error: Invalid input! Please enter a valid positive integer.")
+
+
+def main():
+    part_a()
+    part_b()
+
+
+if __name__ == "__main__":
+    main()
 

@@ -86,7 +86,117 @@
 # - Handle invalid menu choices and missing student IDs gracefully.
 #
 
-# =============================================================================
-# YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
-# =============================================================================
+# # List to store all student dictionary records
+students = []
+
+
+def display_menu():
+    """Displays the student record system menu."""
+    print("\n==============================")
+    print("  STUDENT RECORD SYSTEM MENU  ")
+    print("==============================")
+    print("1. Add student")
+    print("2. Display all students")
+    print("3. Calculate average score")
+    print("4. Quit")
+
+
+def add_student():
+    """Prompts user for student details and adds a dictionary record to the list."""
+    name = input("Student name: ").strip()
+    if not name:
+        print("Error: Student name cannot be empty.")
+        return
+
+    student_id = input("Student ID: ").strip()
+    if not student_id:
+        print("Error: Student ID cannot be empty.")
+        return
+
+    # Check if Student ID already exists
+    for student in students:
+        if student["id"] == student_id:
+            print(f"Error: A student with ID '{student_id}' already exists.")
+            return
+
+    try:
+        num_scores = int(input("How many scores? "))
+        if num_scores <= 0:
+            print("Error: Number of scores must be greater than zero.")
+            return
+
+        scores = []
+        for i in range(1, num_scores + 1):
+            score = float(input(f"Enter score {i}: "))
+            scores.append(score)
+
+        student_record = {"name": name, "id": student_id, "scores": scores}
+
+        students.append(student_record)
+        print(f'Student "{name}" added successfully.')
+
+    except ValueError:
+        print("Error: Invalid numeric input. Student was not added.")
+
+
+def display_all_students():
+    """Displays all student records formatted cleanly in a table."""
+    if not students:
+        print("No student records found.")
+        return
+
+    print("\n" + "=" * 50)
+    print(f"{'Name':<15} {'ID':<12} {'Scores':<15} {'Average':<8}")
+    print("-" * 50)
+
+    for student in students:
+        scores_str = ", ".join(
+            str(int(s)) if s.is_integer() else f"{s:.2f}"
+            for s in student["scores"]
+        )
+        avg = sum(student["scores"]) / len(student["scores"])
+        print(
+            f"{student['name']:<15} {student['id']:<12} {scores_str:<15} {avg:.2f}"
+        )
+    print("-" * 50)
+
+
+def calculate_average_score():
+    """Calculates and displays the average score for a specific student ID."""
+    if not students:
+        print("No student records available.")
+        return
+
+    student_id = input("Enter student ID: ").strip()
+
+    for student in students:
+        if student["id"] == student_id:
+            avg = sum(student["scores"]) / len(student["scores"])
+            print(f"{student['name']}'s average score: {avg:.2f}")
+            return
+
+    print(f"Error: Student ID '{student_id}' not found.")
+
+
+def main():
+    """Main program loop."""
+    while True:
+        display_menu()
+        choice = input("Enter your choice (1-4): ").strip()
+
+        if choice == "1":
+            add_student()
+        elif choice == "2":
+            display_all_students()
+        elif choice == "3":
+            calculate_average_score()
+        elif choice == "4":
+            print("Goodbye!")
+            break
+        else:
+            print("Error: Invalid choice! Please enter a number between 1 and 4.")
+
+
+if __name__ == "__main__":
+    main()
 

@@ -44,8 +44,70 @@
 # - Each part must be implemented in its own function (see scaffold below).
 #
 
-#
-# =============================================================================
-# YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
-# =============================================================================
+#def generate_fibonacci(n):
+# PROGRAMMING FUNDAMENTALS - Assignment 5
+# Topic: Fibonacci Sequence
+# ==============================================================================
 
+def print_first_n_terms():
+    """PART A: Asks for N and prints the first N Fibonacci terms on one line."""
+    try:
+        n = int(input("How many terms? "))
+    except ValueError:
+        print("Error: Please enter a valid integer.")
+        return
+
+    # Requirement: N must be a positive integer
+    if n <= 0:
+        print("Error: N must be a positive integer.")
+        return
+
+    # Generate the first N terms iteratively
+    sequence = []
+    a, b = 0, 1
+    for _ in range(n):
+        sequence.append(a)
+        a, b = b, a + b
+
+    # Print terms separated by spaces on one line
+    print("Fibonacci sequence:", " ".join(map(str, sequence)))
+
+
+def check_fibonacci_number():
+    """PART B: Asks for a number and checks if it belongs to the Fibonacci sequence."""
+    try:
+        target = int(input("Enter a number to check: "))
+    except ValueError:
+        print("Error: Please enter a valid integer.")
+        return
+
+    if target < 0:
+        print(f"{target} is NOT a Fibonacci number.")
+        return
+
+    # Loop to generate Fibonacci numbers until reaching or exceeding target
+    a, b = 0, 1
+    is_fibonacci = False
+
+    while a <= target:
+        if a == target:
+            is_fibonacci = True
+            break
+        a, b = b, a + b
+
+    if is_fibonacci:
+        print(f"{target} is a Fibonacci number.")
+    else:
+        print(f"{target} is NOT a Fibonacci number.")
+
+
+def main():
+    print("--- PART A ---")
+    print_first_n_terms()
+    
+    print("\n--- PART B ---")
+    check_fibonacci_number()
+
+
+if __name__ == "__main__":
+    main()
